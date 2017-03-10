@@ -1,0 +1,484 @@
+<?php
+// TODO Bude tady jen jedna funkce na renderovani zdrojovych kodu `wpg_code_example` s tím že:
+//        1) načítat se bude z externích textových souborů (nebo databázové tabulky)
+//        2) bude obsahovat vše (počáteční i koncové HTML okolo kódu)
+//        3) a to včetně jeho vyrendrování do skutečné podoby (možnost volby: ["above","below","hidden"])
+//        4) budou umožněny filtry na HTML načtené z externích textových souborů
+
+
+if ( !function_exists( 'code_example_start' ) ):
+	/**
+	 * Render begining of a block of source code example.
+	 * @param string $id
+	 * @return void
+	 */
+	function code_example_start( $id, $language="language-php" ) {
+		$display = ( ( bool ) WP_Style_Guide::get_option('display_source_code_examples') === true ) ? true : false;
+		$style = ( $display === true ) ? '' : ' style="display: none;"';
+?>
+<div id="code_example-<?= $id ?>" class="code-example">
+	<pre <?= $style ?>><code class="<?php echo $language; ?>"><?php
+	}
+endif;
+
+if ( !function_exists( 'code_example_end' ) ):
+	/**
+	 * Render end of a block of source code example.
+	 * @param string $id
+	 * @return void
+	 */
+	function code_example_end( $id, $show_hide = false ) {
+		$display = ( ( bool ) WP_Style_Guide::get_option('display_source_code_examples') === true ) ? true : false;
+?></code></pre>
+	<?php if( $show_hide === true ) : ?>
+	<ul class="subsubsub" style="float: none; margin: 0px;">
+		<li>
+			<?php if ( $display === true ):?>
+			<a href="#tr-<?= $id ?>" class="code-example-link" data-example_id="code_example-<?= $id ?>" data-visibility="visible">
+				Hide code example
+			</a>
+			<?php else:?>
+			<a href="#tr-<?= $id ?>" class="code-example-link" data-example_id="code_example-<?= $id ?>" data-visibility="collapsed">
+				Show code example
+			</a>
+			<?php endif; ?>
+		</li>
+	</ul>
+	<?php endif; ?>
+</div>
+<?php
+	}
+endif;
+
+
+?><div class="wrap">
+
+	<?php screen_icon(); ?>
+
+	<h2>Forms</h2>
+
+	<h3 class="screen-reader-text">List of Contents</h3>
+	<ul class="subsubsub">
+		<li><b>Contents:</b> </li>
+		<li><a href="#tr-helper_functions">Helper Functions</a> | </li>
+		<li><a href="#tr-text_input">Text Input</a> | </li>
+		<li><a href="#tr-textarea">Textarea</a> | </li>
+		<li><a href="#tr-select">Select Element</a> | </li>
+		<li><a href="#tr-multi_select">Multiple Select</a> | </li>
+		<li><a href="#tr-radio_buttons">Radio Buttons</a> | </li>
+		<li><a href="#tr-checkbox">Checkbox</a> | </li>
+		<li><a href="#tr-checkbox_array">Checkbox Array</a> | </li>
+		<li><a href="#tr-html5">Fieldset and HTML5 Elements</a> | </li>
+		<li><a href="#tr-datetime">Date Time Elements</a> | </li>
+		<li><a href="#tr-others">Other Elements</a> | </li>
+		<li><a href="#tr-buttons">Buttons</a> | </li>
+		<li><a href="#tr-form_table">Form Table</a> | </li>
+		<li><a href="#tr-nonce">NONCE Field', WP_Style_Guide::PLUGIN_SLUG); ?></a></li>
+	</ul>
+
+	<form id="form" style="clear: both; padding-top: 20px;">
+		<table class="form-table">
+			<tbody>
+				<tr id="tr-helper_functions">
+					<th>
+						<label for="input-text">Helper Functions</label>
+					</th>
+					<td class="wp-pattern-example">
+						<p><b>WordPress</b> contains three helper functions for rendering <code>disabled</code>, <code>checked</code> or <code>selected</code> attributes: '); ?></p>
+						<?php code_example_start( 'helper_functions' ); ?>checked( $checked, $current = TRUE, $echo = TRUE );
+ selected( $selected, $current = TRUE, $echo = TRUE );
+ disabled( $disabled, $current = TRUE, $echo = TRUE );<?php code_example_end( 'helper_functions' ); ?>
+						<p> So instead of writing something like this:</p>
+						<pre><code class="language-php">&lt;input type="checkbox" &lt;?php echo ( /* condition */ ) ? ' checked="checked"' : ''; ?&gt;&gt;</code></pre>
+						<p> You can do just this:</p>
+						<pre><code class="language-php">&lt;input type="checkbox" &lt;?php checked( /* condition */ ); ?&gt;&gt;</code></pre>
+					</td>
+				</tr>
+				<tr id="tr-text_input"><td colspan="2"><p class="description"><a href="#wpbody" class="alignright">Back to top</a></p></td></tr>
+				<tr>
+					<th>
+						<label for="input-text">Text Input</label>
+					</th>
+					<td class="wp-pattern-example">
+						<input type="text" name="input-text" placeholder="Text">
+						<?php code_example_start( 'text_input' ); ?>&lt;input type="text" name="input-text" placeholder="Text"><?php code_example_end( 'text_input' ); ?>
+					</td>
+				</tr>
+				<tr id="tr-textarea"><td colspan="2"><p class="description"><a href="#wpbody" class="alignright">Back to top</a></p></td></tr>
+				<tr>
+					<th>
+						<label for="input-text">Textarea</label>
+					</th>
+					<td class="wp-pattern-example">
+						<textarea name="textarea" class="large-text"></textarea>
+						<?php code_example_start( 'textarea' ); ?>&lt;textarea name="textarea" class="large-text"&gt;&lt;/textarea&gt;<?php code_example_end( 'textarea' ); ?>
+					</td>
+				</tr>
+
+				<tr id="tr-select"><td colspan="2"><p class="description"><a href="#wpbody" class="alignright">Back to top</a></p></td></tr>
+				<tr>
+					<th>
+						<label for="input-text">Select Element</label>
+					</th>
+					<td class="wp-pattern-example">
+						<select name="select">
+							<option>Option 1</option>
+							<option>Option 2</option>
+							<option>Option 3</option>
+						</select>
+						<?php code_example_start( 'select' ); ?>&lt;select name="select">
+   &lt;option>Option 1&lt;/option>
+   &lt;option>Option 2&lt;/option>
+   &lt;option>Option 3&lt;/option>
+ &lt;/select><?php code_example_end( 'select' ); ?>
+					</td>
+				</tr>
+				<tr id="tr-multi_select"><td colspan="2"><p class="description"><a href="#wpbody" class="alignright">Back to top</a></p></td></tr>
+				<tr>
+					<th>
+						<label for="multi-select">Multiple Select</label>
+					</th>
+					<td class="wp-pattern-example">
+						<select name="multi-select" multiple="multiple">
+							<option>Option 1</option>
+							<option>Option 2</option>
+							<option>Option 3</option>
+							<option>Option 4</option>
+							<option>Option 5</option>
+							<option>Option 6</option>
+						</select>
+						<?php code_example_start( 'multi_select' ); ?>&lt;select name="multi-select" multiple="multiple">
+   &lt;option>Option 1&lt;/option>
+   &lt;option>Option 2&lt;/option>
+   &lt;option>Option 3&lt;/option>
+   &lt;option>Option 4&lt;/option>
+   &lt;option>Option 5&lt;/option>
+   &lt;option>Option 6&lt;/option>
+ &lt;/select><?php code_example_end( 'multi_select' ); ?>
+					</td>
+				</tr>
+				<tr id="tr-radio_buttons"><td colspan="2"><p class="description"><a href="#wpbody" class="alignright">Back to top</a></p></td></tr>
+				<tr>
+					<th>
+						<label for="radio-buttons">Radio Buttons</label>
+					</th>
+					<td class="wp-pattern-example">
+						<input type="radio" name="radio-buttons" value="option-1"/> Option 1 <br />
+						<input type="radio" name="radio-buttons" value="option-2"/> Option 2 <br />
+						<input type="radio" name="radio-buttons" value="option-3"/> Option 3 <br />
+						<input type="radio" name="radio-buttons" value="option-4"/> Option 4
+						<?php code_example_start( 'radio_buttons' ); ?>&lt;input type="radio" name="radio-buttons" value="option-1"> Option 1 
+ &lt;input type="radio" name="radio-buttons" value="option-2"> Option 2 
+ &lt;input type="radio" name="radio-buttons" value="option-3"> Option 3 
+ &lt;input type="radio" name="radio-buttons" value="option-4"> Option 4 <?php code_example_end( 'radio_buttons' ); ?>
+					</td>
+				</tr>
+				<tr id="tr-checkbox"><td colspan="2"><p class="description"><a href="#wpbody" class="alignright">Back to top</a></p></td></tr>
+				<tr>
+					<th>
+						<label for="input-checkbox">Checkbox</label>
+					</th>
+					<td class="wp-pattern-example">
+						<input type="checkbox" name="input-checkbox" /> Option 1
+						<?php code_example_start( 'checkbox' ); ?>&lt;input type="checkbox" name="input-checkbox"> Option 1 <?php code_example_end( 'checkbox' ); ?>
+					</td>
+				</tr>
+				<tr id="tr-checkbox_array"><td colspan="2"><p class="description"><a href="#wpbody" class="alignright">Back to top</a></p></td></tr>
+				<tr>
+					<th>
+						<label for="checkbox-array">Checkbox Array</label>
+					</th>
+					<td class="wp-pattern-example">
+						<input type="checkbox" name="checkbox-array[]" value="option-1"> Option 1<br />
+						<input type="checkbox" name="checkbox-array[]" value="option-2"> Option 2<br />
+						<input type="checkbox" name="checkbox-array[]" value="option-3"> Option 3
+						<?php code_example_start( 'checkbox_array' ); ?>&lt;input type="checkbox" name="checkbox-array[]" value="option-1"> Option 1 
+ &lt;input type="checkbox" name="checkbox-array[]" value="option-2"> Option 2 
+ &lt;input type="checkbox" name="checkbox-array[]" value="option-3"> Option 3 <?php code_example_end( 'checkbox_array' ); ?>
+					</td>
+				</tr>
+				<tr id="tr-html5"><td colspan="2"><p class="description"><a href="#wpbody" class="alignright">Back to top</a></p></td></tr>
+				<tr>
+					<th>
+						<label for="input-fieldset">Fieldset and <br />HTML5 Elements</label>
+					</th>
+					<td class="wp-pattern-example">
+						<fieldset>
+							<legend>Legend</legend>
+							<input type="email" placeholder="Email" /> Email<br />
+							<input type="search" placeholder="Search" /> Search<br />
+							<input type="tel" placeholder="Telephone" /> Telephone<br />
+							<input type="text" placeholder="Text" /> Text<br />
+							<input type="url" placeholder="URL" /> URL<br />
+						</fieldset>
+						<?php code_example_start( 'html5' ); ?>&lt;fieldset&gt;
+   &lt;legend&gt;Legend&lt;/legend&gt;
+   &lt;input type="email" placeholder="Email"&gt; Email 
+   &lt;input type="search" placeholder="Search"&gt; Search 
+   &lt;input type="tel" placeholder="Telephone"&gt; Telephone 
+   &lt;input type="text" placeholder="Text"&gt; Text 
+   &lt;input type="url" placeholder="URL"&gt; URL 
+ &lt;/fieldset&gt;<?php code_example_end( 'html5' ); ?>
+					</td>
+				</tr>
+				<tr id="tr-datetime"><td colspan="2"><p class="description"><a href="#wpbody" class="alignright">Back to top</a></p></td></tr>
+				<tr>
+					<th>
+						<label for="input-time">Date Time Elements</label>
+					</th>
+					<td class="wp-pattern-example">
+						<p><?= sprintf( __( 'If you creating date time inputs for form for editing <em>custom-</em>post type you can use <b>WordPress</b> function <a href="touch_time" target="blank"><code>touch_time()</code></a> (<b>Warning:</b> This function can be used only on <code>post.php</code> or <code>post-new.php</code> pages!):', WP_Style_Guide::PLUGIN_SLUG ), 'https://developer.wordpress.org/reference/functions/touch_time/' )?></p>
+						<pre><code class="language-php">&lt;?php @touch_time( false, false, false, true ); ?&gt;</code></pre>
+						<?php 
+						@touch_time(false, false, false, true);
+						?>
+						<p>This will create output like this:</p>
+						<?php code_example_start( 'datetime2' ); ?>&lt;div class="timestamp-wrap"&gt;
+	&lt;label&gt;
+		&lt;span class="screen-reader-text"&gt;Date&lt;/span&gt;
+		&lt;input name="jj" value="27" size="2" maxlength="2" autocomplete="off" type="text"&gt;
+	&lt;/label&gt;.
+	&lt;label&gt;
+		&lt;span class="screen-reader-text"&gt;Month&lt;/span&gt;
+		&lt;select name="mm"&gt;
+			&lt;option value="01" data-text="Jan"&gt;01 - Jan&lt;/option&gt;
+			&lt;option value="02" data-text="Feb" selected="selected"&gt;02 - Feb&lt;/option&gt;
+			&lt;option value="03" data-text="Mar"&gt;03 - Mar&lt;/option&gt;
+			&lt;option value="04" data-text="Apr"&gt;04 - Apr&lt;/option&gt;
+			&lt;option value="05" data-text="May"&gt;05 - May&lt;/option&gt;
+			&lt;option value="06" data-text="Jun"&gt;06 - Jun&lt;/option&gt;
+			&lt;option value="07" data-text="Jul"&gt;07 - Jul&lt;/option&gt;
+			&lt;option value="08" data-text="Aug"&gt;08 - Aug&lt;/option&gt;
+			&lt;option value="09" data-text="Sep"&gt;09 - Sep&lt;/option&gt;
+			&lt;option value="10" data-text="Oct"&gt;10 - Oct&lt;/option&gt;
+			&lt;option value="11" data-text="Nov"&gt;11 - Nov&lt;/option&gt;
+			&lt;option value="12" data-text="Dec"&gt;12 - Dec&lt;/option&gt;
+		&lt;/select&gt;
+	&lt;/label&gt; 
+	&lt;label&gt;
+		&lt;span class="screen-reader-text"&gt;Year&lt;/span&gt;
+		&lt;input name="aa" value="2016" size="4" maxlength="4" autocomplete="off" type="text"&gt;
+	&lt;/label&gt; @ 
+	&lt;label&gt;
+		&lt;span class="screen-reader-text"&gt;Hours&lt;/span&gt;
+		&lt;input name="hh" value="15" size="2" maxlength="2" autocomplete="off" type="text"&gt;
+	&lt;/label&gt;:
+	&lt;label&gt;
+		&lt;span class="screen-reader-text"&gt;Mins&lt;/span&gt;
+		&lt;input name="mn" value="23" size="2" maxlength="2" autocomplete="off" type="text"&gt;
+	&lt;/label&gt;
+&lt;/div&gt;<?php code_example_end( 'datetime2', true ); ?>
+						<p>Otherwise there are simple date time inputs available:</p>
+						<label style="display: inline-block; width: 200px;">Date:</label> <input name="input-date" type="date"><br>
+						<label style="display: inline-block; width: 200px;">Month:</label> <input name="input-month" type="month"><br>
+						<label style="display: inline-block; width: 200px;">Week:</label> <input name="input-week" type="week"><br>
+						<label style="display: inline-block; width: 200px;">Time:</label> <input name="input-time" type="time"><br>
+						<label style="display: inline-block; width: 200px;">Local Date and Time:</label> <input name="input-datetime-local" type="datetime-local">
+						<?php code_example_start( 'datetime3' ); ?>&lt;label style="display: inline-block; width: 200px;"&gt;Date:&lt;/label&gt;
+ &lt;input id="input-date" name="input-date" type="date"&gt;&lt;br&gt;
+ &lt;label style="display: inline-block; width: 200px;"&gt;Month:&lt;/label&gt;
+ &lt;input id="input-month" name="input-month" type="month"&gt;&lt;br&gt;
+ &lt;label style="display: inline-block; width: 200px;"&gt;Week:&lt;/label&gt;
+ &lt;input id="input-week" name="input-week" type="week"&gt;&lt;br&gt;
+ &lt;label style="display: inline-block; width: 200px;"&gt;Time:&lt;/label&gt;
+ &lt;input id="input-time" name="input-time" type="time"&gt;&lt;br&gt;
+ &lt;label style="display: inline-block; width: 200px;"&gt;Local Date and Time:&lt;/label&gt;
+ &lt;input name="input-datetime-local" type="datetime-local"&gt;<?php code_example_end( 'datetime3', true ); ?>
+					</td>
+				</tr>
+				<tr id="tr-others"><td colspan="2"><p class="description"><a href="#wpbody" class="alignright">Back to top</a></p></td></tr>
+				<tr>
+					<th>
+						<label for="input-time">Other Elements</label>
+					</th>
+					<td class="wp-pattern-example">
+						Number: <input name="input-number" type="number" min="0" max="20" /><br />
+						Range: <input name="input-range" type="range" /><br />
+						Color: <input name="input-color" type="color" />
+						<?php code_example_start( 'other_elements' ); ?>Number: &lt;input name="input-number" type="number" min="0" max="20"&gt;
+ Range: &lt;input name="input-range" type="range"&gt;
+ Color: &lt;input name="input-color" type="color"&gt;<?php code_example_end( 'other_elements' ); ?>
+					</td>
+				</tr>
+				<tr id="tr-buttons"><td colspan="2"><p class="description"><a href="#wpbody" class="alignright">Back to top</a></p></td></tr>
+				<tr>
+					<th>
+						<label for="input-time">Buttons</label>
+					</th>
+					<td class="wp-pattern-example">
+						<p><?php printf( __( '<b>WordPress</b> contains helper function for rendering submit buttons <a href="%s" target="blank"><code>submit_button</code></a>:', WP_Style_Guide::PLUGIN_SLUG ) , 'https://developer.wordpress.org/reference/functions/submit_button/' ); ?></p>
+						<p class="description">Note: This function can be used only in administration (is located in file <code>wp-admin/includes/template.php</code>).</p>
+						<?php code_example_start( 'buttons1' ); ?>&lt;?php submit_button( 'Submit Input', 'primary', 'my-submit' ); ?&gt;<?php code_example_end( 'buttons1' ); ?>
+						<?php submit_button( esc_html( 'Submit Input', WP_Style_Guide::PLUGIN_SLUG ), 'primary', 'my-submit' );?>
+						<p>But you can also use plain HTML:</p>
+						<?php code_example_start( 'buttons2' ); ?>&lt;input type="submit" value="Submit Input" class="button"&gt;
+ &lt;input type="button" value="Secondary Button" class="button-secondary"&gt;
+ &lt;input type="button" value="Primary Button" class="button-primary"&gt;<?php code_example_end( 'buttons2' ); ?>
+						<input type="submit" value="Submit Input" class="button" /><br /><br />
+						<input type="button" value="Secondary Button" class="button-secondary" /><br /><br />
+						<input type="button" value="Primary Button" class="button-primary" />
+					</td>
+				</tr>
+				<tr id="tr-form_table"><td colspan="2"><p class="description"><a href="#wpbody" class="alignright">Back to top</a></p></td></tr>
+				<tr>
+					<th>
+						<label>Form Table</label>
+					</th>
+					<td class="wp-pattern-example">
+						<p>Here is minor excerpt with the form table as is used in <b>WordPress</b> options pages.</p>
+						<!-- Example: Form table -->
+						<table class="form-table">
+							<tbody>
+								<tr>
+									<th scope="row">
+										<label for="input-test-name">Shop name</label>
+									</th>
+									<td>
+										<fieldset>
+											<legend class="screen-reader-text">
+												<span>Name of one-page shop</span>
+											</legend>
+											<p>
+												<label title="Same as whole WordPress site" data-value="inherited">
+													<input type="radio" name="input-test-name" value="inherited" checked="checked">
+													Same as whole WordPress site
+													<span class="description"> (Same as is inserted <a href="#">here</a>&hellip;)</span>
+												</label>
+											</p>
+											<p>
+												<label title="Custom: " data-value="custom">
+													<input type="radio" name="input-test-name" value="custom">
+													Custom: 
+													<span class="screen-reader-text">insert name of shop</span>
+													<label class="screen-reader-text" for="input-test-name_custom">Name of one-page shop</label>
+													<input type="text" name="input-test-name_custom" id="input-test-name_custom" value="" class="regular-text" placeholder="Enter name for your new one-page shop&hellip;" disabled="disabled">
+												</label>
+											</p>
+										</fieldset>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">
+										<label for="test-input-02">Description</label>
+									</th>
+									<td>
+										<fieldset>
+											<p>
+												<label for="test-input-02">Shop\'s description should be simple and easily to remember.</label>
+												<input type="text" name="test-input-02" id="test-input-02" class="regular-text">
+											</p>
+											<p class="description">Enter text with at the most 255 characters.</p>
+										</fieldset>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+    					<script type="text/javascript">
+jQuery(document).on("ready", function () {
+	jQuery("input[name='input-test-name']").parent().on(
+		"click", 
+		function() {
+			if (jQuery(this).data('value') == "custom") {
+				jQuery("#input-test-name_custom")
+					.prop("disabled", false)
+					.removeProp("disabled").focus();
+			} else {
+				jQuery("#input-test-name_custom")
+					.prop("disabled", true);
+			}
+		}
+	);
+});
+						</script>
+						<!-- // Example: Form table -->
+						<?php code_example_start( 'form_table' ); ?>&lt;table class="form-table"&gt;
+	&lt;tbody&gt;
+		&lt;tr&gt;
+			&lt;th scope="row"&gt;
+				&lt;label for="input-test-name"&gt;Shop name&lt;/label&gt;
+			&lt;/th&gt;
+			&lt;td&gt;
+				&lt;fieldset&gt;
+					&lt;legend class="screen-reader-text"&gt;
+						&lt;span&gt;Name of one-page shop&lt;/span&gt;
+					&lt;/legend&gt;
+					&lt;p&gt;
+						&lt;label title="Same as whole WordPress site" data-value="inherited"&gt;
+							&lt;input type="radio" name="input-test-name" value="inherited" checked="checked"&gt;
+							Same as whole WordPress site 
+							&lt;span class="description"&gt;
+								 (Same as is inserted <a href="#">here</a>&hellip;) 
+							&lt;/span&gt;
+						&lt;/label&gt;
+					&lt;/p&gt;
+					&lt;p&gt;
+						&lt;label title="Custom: " data-value="custom"&gt;
+							&lt;input type="radio" name="input-test-name" value="custom"&gt;
+							Custom:  
+							&lt;span class="screen-reader-text"&gt;
+								insert name of shop 
+							&lt;/span&gt;
+							&lt;label class="screen-reader-text" for="input-test-name_custom"&gt;
+								Name of one-page shop 
+							&lt;/label&gt;
+							&lt;input type="text" name="input-test-name_custom" id="input-test-name_custom" 
+							          value="" class="regular-text" disabled="disabled" 
+							          placeholder="Enter name for your new one-page shop&hellip;"&gt;
+						&lt;/label&gt;
+					&lt;/p&gt;
+				&lt;/fieldset&gt;
+			&lt;/td&gt;
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;th scope="row"&gt;
+				&lt;label for="test-input-02"&gt;Description&lt;/label&gt;
+			&lt;/th&gt;
+			&lt;td&gt;
+				&lt;fieldset&gt;
+					&lt;p&gt;
+						&lt;label for="test-input-02"&gt;
+							Shop\'s description should be simple and easily to remember. 
+						&lt;/label&gt;
+						&lt;input type="text" name="test-input-02" id="test-input-02" class="regular-text"&gt;
+					&lt;/p&gt;
+					&lt;p class="description"&gt;
+						Enter text with at the most 255 characters. 
+					&lt;/p&gt;
+				&lt;/fieldset&gt;
+			&lt;/td&gt;
+		&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;script type="text/javascript"&gt;
+jQuery(document).on('ready', function () {
+	jQuery('input[name="input-test-name"]').parent().on(
+		'click', 
+		function() {
+			if (jQuery(this).data('value') == 'custom') {
+				jQuery('#input-test-name_custom').prop('disabled', false).removeProp('disabled').focus();
+			} else {
+				jQuery('#input-test-name_custom').prop('disabled", true);
+			}
+		}
+	);
+});
+&lt;/script&gt;<?php code_example_end( 'form_table', true ); ?>
+					</td>
+				</tr>
+				<tr id="tr-nonce"><td colspan="2"><p class="description"><a href="#wpbody" class="alignright">Back to top</a></p></td></tr>
+				<tr>
+					<th>
+						<label>NONCE Field</label>
+					</th>
+					<td class="wp-pattern-example">
+						<p><?php printf( __( 'When you need add security field into your forms you can use <a href="%s" target="blank"><code>wp_nonce_field</code></a> function.', WP_Style_Guide::PLUGIN_SLUG), 'https://developer.wordpress.org/reference/functions/wp_nonce_field/' ); ?></p>
+						<pre><code class="language-php">&lt;?php wp_nonce_field(); ?&gt;</code></pre>
+						<p class="description"><?php printf( __( '<b>Note:</b> Nonces are described here in article <a href="%s" target="blank">WordPress Nonces</a> (WordPress Codex).', WP_Style_Guide::PLUGIN_SLUG), 'https://codex.wordpress.org/WordPress_Nonces' ); ?></p>
+					</td>
+				</tr>
+				<tr><td colspan="2"><p class="description"><a href="#wpbody" class="alignright">Back to top</a></p></td></tr>
+			</tbody>
+		</table>
+	</form>
+
+</div><!-- .wrap -->
