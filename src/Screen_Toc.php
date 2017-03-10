@@ -20,9 +20,16 @@ class Screen_Toc extends Screen_Prototype {
      */
     public function __construct( $options = array() ) {
         $options['slug'] = 'odwpap-screen_toc';
-        $options['menu_title'] = 'Pattern Library';
-        $options['page_title'] = 'WordPress Admin Pattern Library';
+        $options['menu_title'] = 'Admin Patterns';
+        $options['page_title'] = 'WordPress Admin Patterns Library';
 
         parent::__construct( $options );
+    }
+
+    /**
+     * Render screen.
+     */
+    public function render() {
+        include_once( plugin_dir_path( dirname( __FILE__ ) ) . 'templates/toc.phtml' );
     }
 }

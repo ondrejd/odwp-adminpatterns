@@ -136,9 +136,8 @@ class Plugin {
      */
     protected function init_screens() {
         foreach ( $this->options['screens'] as $screen ) {
-            //$cls_name = "screens\{$screen}";
-            $this->screens = new $screen( array(
-                'plugin_slug' => $this->get_slug(),
+            $this->screens[] = new $screen( array(
+                'plugin_options' => $this->options,
             ) );
         }
     }
@@ -155,9 +154,6 @@ class Plugin {
      * Initialize administration.
      */
     public function admin_init() {
-        // Main admin menu
-        // ...
-        // Process all screens
         foreach ( $this->screens as $screen ) {
             $screen->admin_init();
         }
@@ -167,9 +163,6 @@ class Plugin {
      * Updates WP admin menu.
      */
     public function admin_menu() {
-        // Main admin menu
-        // ...
-        // Process all screens
         foreach ( $this->screens as $screen ) {
             $screen->admin_menu();
         }

@@ -25,4 +25,11 @@ class Screen_HelperClasses extends Screen_Prototype {
 
         parent::__construct( $options );
     }
+
+    /**
+     * Render screen.
+     */
+    public function render() {
+        include_once( plugin_dir_path( dirname( __FILE__ ) ) . 'templates/helperclasses.phtml' );
+    }
 }

@@ -39,14 +39,21 @@ include_once( $odwpap_plugin_dir . 'src/Screen_Toc.php' );
  * @var \com\ondrejd\adminpatterns\Plugin
  */
 $odwpap_plugin = new \com\ondrejd\adminpatterns\Plugin( array(
-        'slug'     => 'odwp-adminpatterns',
-        'version'  => '0.1.0',
-        'screens'  => array(
+        // Plugin's slug
+        'slug'      => 'odwp-adminpatterns',
+        // Plugin's version
+        'version'   => '0.1.0',
+        // Administration screens provided by the plugin.
+        'screens'   => array(
             0 => '\com\ondrejd\adminpatterns\screens\Screen_Toc',
             1 => '\com\ondrejd\adminpatterns\screens\Screen_Forms',
             2 => '\com\ondrejd\adminpatterns\screens\Screen_OtherWidgets',
             3 => '\com\ondrejd\adminpatterns\screens\Screen_HelperClasses',
             4 => '\com\ondrejd\adminpatterns\screens\Screen_JqueryUi',
         ),
-        'defaults' => array(),
+        // Default values of preferences of the plugin.
+        'defaults'  => array(),
+        // Main menu slug - all screens (without the one with the same slug) 
+        // will be sub menu-items of these menu.
+        'main_menu' => 'odwpap-screen_toc',
 ) );
