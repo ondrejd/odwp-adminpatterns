@@ -8,7 +8,7 @@
  * Author URI: http://ondrejd.com/
  * License: GPLv3
  * Requires at least: 4.7
- * Tested up to: 4.7.2
+ * Tested up to: 4.7.3
  *
  * @author  Ondřej Doněk, <ondrejd@gmail.com>
  * @license https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License 3.0
