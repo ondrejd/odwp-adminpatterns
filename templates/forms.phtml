@@ -1,19 +1,34 @@
 <?php
-// TODO Bude tady jen jedna funkce na renderovani zdrojovych kodu `wpg_code_example` s tím že:
-//        1) načítat se bude z externích textových souborů (nebo databázové tabulky)
-//        2) bude obsahovat vše (počáteční i koncové HTML okolo kódu)
-//        3) a to včetně jeho vyrendrování do skutečné podoby (možnost volby: ["above","below","hidden"])
-//        4) budou umožněny filtry na HTML načtené z externích textových souborů
 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ * @todo Here will be just one function for rendering source codes `wpg_code_example`.
+ * @todo Get plugin's option `display_detail_description`!
+ */
+$display_description = true;
+
+// Bude tady jen jedna funkce na renderovani zdrojovych kodu `wpg_code_example` s tím že:
+// 1) načítat se bude z externích textových souborů (nebo databázové tabulky)
+// 2) bude obsahovat vše (počáteční i koncové HTML okolo kódu)
+// 3) a to včetně jeho vyrendrování do skutečné podoby (možnost volby: ["above","below","hidden"])
+// 4) budou umožněny filtry na HTML načtené z externích textových souborů
 
 if ( !function_exists( 'code_example_start' ) ):
 	/**
 	 * Render begining of a block of source code example.
 	 * @param string $id
 	 * @return void
+     * 
+     * @todo Get plugin's option `display_source_code_examples`!
 	 */
 	function code_example_start( $id, $language="language-php" ) {
-		$display = ( ( bool ) WP_Style_Guide::get_option('display_source_code_examples') === true ) ? true : false;
+		//$display = ( ( bool ) WP_Style_Guide::get_option('display_source_code_examples') === true ) ? true : false;
+        $display = true;
 		$style = ( $display === true ) ? '' : ' style="display: none;"';
 ?>
 <div id="code_example-<?= $id ?>" class="code-example">
@@ -26,6 +41,8 @@ if ( !function_exists( 'code_example_end' ) ):
 	 * Render end of a block of source code example.
 	 * @param string $id
 	 * @return void
+     * 
+     * @todo Get plugin's option `display_source_code_examples`!
 	 */
 	function code_example_end( $id, $show_hide = false ) {
 		$display = ( ( bool ) WP_Style_Guide::get_option('display_source_code_examples') === true ) ? true : false;
@@ -73,7 +90,7 @@ endif;
 		<li><a href="#tr-others">Other Elements</a> | </li>
 		<li><a href="#tr-buttons">Buttons</a> | </li>
 		<li><a href="#tr-form_table">Form Table</a> | </li>
-		<li><a href="#tr-nonce">NONCE Field', WP_Style_Guide::PLUGIN_SLUG); ?></a></li>
+		<li><a href="#tr-nonce">NONCE Field</a></li>
 	</ul>
 
 	<form id="form" style="clear: both; padding-top: 20px;">
@@ -84,7 +101,7 @@ endif;
 						<label for="input-text">Helper Functions</label>
 					</th>
 					<td class="wp-pattern-example">
-						<p><b>WordPress</b> contains three helper functions for rendering <code>disabled</code>, <code>checked</code> or <code>selected</code> attributes: '); ?></p>
+						<p><b>WordPress</b> contains three helper functions for rendering <code>disabled</code>, <code>checked</code> or <code>selected</code> attributes:</p>
 						<?php code_example_start( 'helper_functions' ); ?>checked( $checked, $current = TRUE, $echo = TRUE );
  selected( $selected, $current = TRUE, $echo = TRUE );
  disabled( $disabled, $current = TRUE, $echo = TRUE );<?php code_example_end( 'helper_functions' ); ?>
@@ -227,7 +244,7 @@ endif;
 						<label for="input-time">Date Time Elements</label>
 					</th>
 					<td class="wp-pattern-example">
-						<p><?= sprintf( __( 'If you creating date time inputs for form for editing <em>custom-</em>post type you can use <b>WordPress</b> function <a href="touch_time" target="blank"><code>touch_time()</code></a> (<b>Warning:</b> This function can be used only on <code>post.php</code> or <code>post-new.php</code> pages!):', WP_Style_Guide::PLUGIN_SLUG ), 'https://developer.wordpress.org/reference/functions/touch_time/' )?></p>
+						<p><?= sprintf( 'If you creating date time inputs for form for editing <em>custom-</em>post type you can use <b>WordPress</b> function <a href="touch_time" target="blank"><code>touch_time()</code></a> (<b>Warning:</b> This function can be used only on <code>post.php</code> or <code>post-new.php</code> pages!):', 'https://developer.wordpress.org/reference/functions/touch_time/' )?></p>
 						<pre><code class="language-php">&lt;?php @touch_time( false, false, false, true ); ?&gt;</code></pre>
 						<?php 
 						@touch_time(false, false, false, true);
@@ -306,10 +323,10 @@ endif;
 						<label for="input-time">Buttons</label>
 					</th>
 					<td class="wp-pattern-example">
-						<p><?php printf( __( '<b>WordPress</b> contains helper function for rendering submit buttons <a href="%s" target="blank"><code>submit_button</code></a>:', WP_Style_Guide::PLUGIN_SLUG ) , 'https://developer.wordpress.org/reference/functions/submit_button/' ); ?></p>
+						<p><?php printf( '<b>WordPress</b> contains helper function for rendering submit buttons <a href="%s" target="blank"><code>submit_button</code></a>:', 'https://developer.wordpress.org/reference/functions/submit_button/' ); ?></p>
 						<p class="description">Note: This function can be used only in administration (is located in file <code>wp-admin/includes/template.php</code>).</p>
 						<?php code_example_start( 'buttons1' ); ?>&lt;?php submit_button( 'Submit Input', 'primary', 'my-submit' ); ?&gt;<?php code_example_end( 'buttons1' ); ?>
-						<?php submit_button( esc_html( 'Submit Input', WP_Style_Guide::PLUGIN_SLUG ), 'primary', 'my-submit' );?>
+						<?php submit_button( 'Submit Input', 'primary', 'my-submit' );?>
 						<p>But you can also use plain HTML:</p>
 						<?php code_example_start( 'buttons2' ); ?>&lt;input type="submit" value="Submit Input" class="button"&gt;
  &lt;input type="button" value="Secondary Button" class="button-secondary"&gt;
@@ -364,7 +381,7 @@ endif;
 									<td>
 										<fieldset>
 											<p>
-												<label for="test-input-02">Shop\'s description should be simple and easily to remember.</label>
+												<label for="test-input-02">Shop's description should be simple and easily to remember.</label>
 												<input type="text" name="test-input-02" id="test-input-02" class="regular-text">
 											</p>
 											<p class="description">Enter text with at the most 255 characters.</p>
@@ -437,7 +454,7 @@ jQuery(document).on("ready", function () {
 				&lt;fieldset&gt;
 					&lt;p&gt;
 						&lt;label for="test-input-02"&gt;
-							Shop\'s description should be simple and easily to remember. 
+							Shop's description should be simple and easily to remember. 
 						&lt;/label&gt;
 						&lt;input type="text" name="test-input-02" id="test-input-02" class="regular-text"&gt;
 					&lt;/p&gt;
@@ -471,9 +488,9 @@ jQuery(document).on('ready', function () {
 						<label>NONCE Field</label>
 					</th>
 					<td class="wp-pattern-example">
-						<p><?php printf( __( 'When you need add security field into your forms you can use <a href="%s" target="blank"><code>wp_nonce_field</code></a> function.', WP_Style_Guide::PLUGIN_SLUG), 'https://developer.wordpress.org/reference/functions/wp_nonce_field/' ); ?></p>
+						<p><?php printf( 'When you need add security field into your forms you can use <a href="%s" target="blank"><code>wp_nonce_field</code></a> function.', 'https://developer.wordpress.org/reference/functions/wp_nonce_field/' ); ?></p>
 						<pre><code class="language-php">&lt;?php wp_nonce_field(); ?&gt;</code></pre>
-						<p class="description"><?php printf( __( '<b>Note:</b> Nonces are described here in article <a href="%s" target="blank">WordPress Nonces</a> (WordPress Codex).', WP_Style_Guide::PLUGIN_SLUG), 'https://codex.wordpress.org/WordPress_Nonces' ); ?></p>
+						<p class="description"><?php printf( '<b>Note:</b> Nonces are described here in article <a href="%s" target="blank">WordPress Nonces</a> (WordPress Codex).', 'https://codex.wordpress.org/WordPress_Nonces' ); ?></p>
 					</td>
 				</tr>
 				<tr><td colspan="2"><p class="description"><a href="#wpbody" class="alignright">Back to top</a></p></td></tr>

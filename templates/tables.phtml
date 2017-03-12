@@ -1,11 +1,15 @@
 <?php
-/**
- * Page "Tables".
- *
- * @author Ondrej Donek, <ondrejd@gmail.com>
- * @since 1.0.1
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
-$display_description = ( ( bool ) WP_Style_Guide::get_option( 'display_detail_description' ) === true ) ? true : false;
+
+/**
+ * @todo Get plugin's option `display_detail_description`!
+ */
+$display_description = true;
 
 ?><div class="wrap">
 
@@ -19,7 +23,7 @@ $display_description = ( ( bool ) WP_Style_Guide::get_option( 'display_detail_de
 	<!--
 	<div class="wp-pattern-example">
 		<p><?php printf(
-			__( 'If you want list some data in your plugin you need to implement new class that extends <a href="%1$s" target="blank"><code>WP_List_Table</code></a>. It is not complicated task and we show it here using simple wizard that generates all neccessary code.', WP_Style_Guide::PLUGIN_SLUG ),
+			'If you want list some data in your plugin you need to implement new class that extends <a href="%1$s" target="blank"><code>WP_List_Table</code></a>. It is not complicated task and we show it here using simple wizard that generates all neccessary code.',
 			'' 
 		); ?></p>
 	</div>
