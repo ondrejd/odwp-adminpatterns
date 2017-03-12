@@ -19,52 +19,53 @@ $display_description = true;
 // 4) budou umožněny filtry na HTML načtené z externích textových souborů
 
 if ( !function_exists( 'code_example_start' ) ):
-	/**
-	 * Render begining of a block of source code example.
-	 * @param string $id
-	 * @return void
-     * 
-     * @todo Get plugin's option `display_source_code_examples`!
-	 */
-	function code_example_start( $id, $language="language-php" ) {
-		//$display = ( ( bool ) WP_Style_Guide::get_option('display_source_code_examples') === true ) ? true : false;
-        $display = true;
-		$style = ( $display === true ) ? '' : ' style="display: none;"';
+    /**
+     * Render begining of a block of source code example.
+     * @global \com\ondrejd\adminpatterns\Plugin $odwpap_plugin
+     * @param string $id
+     * @return void
+     */
+    function code_example_start( $id, $language="language-php" ) {
+        global $odwpap_plugin;
+
+        $display = ( bool ) $odwpap_plugin->get_( 'display_source_code_examples' );
+        $style = ( $display === true ) ? '' : ' style="display: none;"';
 ?>
 <div id="code_example-<?= $id ?>" class="code-example">
-	<pre <?= $style ?>><code class="<?php echo $language; ?>"><?php
-	}
+    <pre <?= $style ?>><code class="<?php echo $language; ?>"><?php
+    }
 endif;
 
 if ( !function_exists( 'code_example_end' ) ):
-	/**
-	 * Render end of a block of source code example.
-	 * @param string $id
-	 * @return void
-     * 
-     * @todo Get plugin's option `display_source_code_examples`!
-	 */
-	function code_example_end( $id, $show_hide = false ) {
-		$display = ( ( bool ) WP_Style_Guide::get_option('display_source_code_examples') === true ) ? true : false;
+    /**
+     * Render end of a block of source code example.
+     * @global \com\ondrejd\adminpatterns\Plugin $odwpap_plugin
+     * @param string $id
+     * @return void
+     */
+    function code_example_end( $id, $show_hide = false ) {
+        global $odwpap_plugin;
+
+        $display = ( bool ) $odwpap_plugin->get_( 'display_source_code_examples' );
 ?></code></pre>
-	<?php if( $show_hide === true ) : ?>
-	<ul class="subsubsub" style="float: none; margin: 0px;">
-		<li>
-			<?php if ( $display === true ):?>
-			<a href="#tr-<?= $id ?>" class="code-example-link" data-example_id="code_example-<?= $id ?>" data-visibility="visible">
-				Hide code example
-			</a>
-			<?php else:?>
-			<a href="#tr-<?= $id ?>" class="code-example-link" data-example_id="code_example-<?= $id ?>" data-visibility="collapsed">
-				Show code example
-			</a>
-			<?php endif; ?>
-		</li>
-	</ul>
-	<?php endif; ?>
+    <?php if( $show_hide === true ) : ?>
+    <ul class="subsubsub" style="float: none; margin: 0px;">
+        <li>
+            <?php if ( $display === true ):?>
+            <a href="#tr-<?= $id ?>" class="code-example-link" data-example_id="code_example-<?= $id ?>" data-visibility="visible">
+                Hide code example
+            </a>
+            <?php else:?>
+            <a href="#tr-<?= $id ?>" class="code-example-link" data-example_id="code_example-<?= $id ?>" data-visibility="collapsed">
+                Show code example
+            </a>
+            <?php endif; ?>
+        </li>
+    </ul>
+    <?php endif; ?>
 </div>
 <?php
-	}
+    }
 endif;
 
 

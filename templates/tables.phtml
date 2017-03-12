@@ -7,9 +7,14 @@
  */
 
 /**
- * @todo Get plugin's option `display_detail_description`!
+ * @global \com\ondrejd\adminpatterns\Plugin $odwpap_plugin
  */
-$display_description = true;
+global $odwpap_plugin;
+
+/**
+ * @var string
+ */
+$display_description = (bool) $odwpap_plugin->get_option( 'display_detail_description' );
 
 ?><div class="wrap">
 
