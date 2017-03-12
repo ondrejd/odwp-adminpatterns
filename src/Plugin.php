@@ -132,6 +132,14 @@ class Plugin {
     }
 
     /**
+     * Returns administration screens implemented by the plugin.
+     * @return array
+     */
+    public function get_screens() {
+        return $this->screens;
+    }
+
+    /**
      * Initializes screens included in plugin.
      */
     protected function init_screens() {
