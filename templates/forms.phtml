@@ -28,7 +28,7 @@ if ( !function_exists( 'code_example_start' ) ):
     function code_example_start( $id, $language="language-php" ) {
         global $odwpap_plugin;
 
-        $display = ( bool ) $odwpap_plugin->get_( 'display_source_code_examples' );
+        $display = ( bool ) $odwpap_plugin->get_option( 'display_source_code_examples' );
         $style = ( $display === true ) ? '' : ' style="display: none;"';
 ?>
 <div id="code_example-<?= $id ?>" class="code-example">
@@ -46,7 +46,7 @@ if ( !function_exists( 'code_example_end' ) ):
     function code_example_end( $id, $show_hide = false ) {
         global $odwpap_plugin;
 
-        $display = ( bool ) $odwpap_plugin->get_( 'display_source_code_examples' );
+        $display = ( bool ) $odwpap_plugin->get_option( 'display_source_code_examples' );
 ?></code></pre>
     <?php if( $show_hide === true ) : ?>
     <ul class="subsubsub" style="float: none; margin: 0px;">
