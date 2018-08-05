@@ -1,44 +1,70 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * WordPress plugin Admin Patterns that contains design patterns library
+ * to help with developing plugins that perfectly fit into WordPress.
+ *
+ * @author Ondřej Doněk, <ondrejd@gmail.com>
+ * @license https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License 3.0
+ * @link https://github.com/ondrejd/odwp-adminpatterns for the canonical source repository
+ * @package odwp-adminpatterns
+ * @since 0.1.0
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit();
+}
 
 /**
  * @todo Add link to <a href="https://github.com">GitHub</a> (and directly to issues).
  * @todo Add link to <a href="https://paypal.me/ondrejd">PayPal.me</a>.
+ * @todo Remove inline CSS files!
  */
 
 /**
- * @global \com\ondrejd\adminpatterns\Plugin $odwpap_plugin
+ * @since 0.1.0
+ * @var \com\ondrejd\adminpatterns\Plugin $plugin
  */
-global $odwpap_plugin;
+$plugin = \com\ondrejd\adminpatterns\Plugin::get_instance();
 
-$screens = $odwpap_plugin->get_screens();
+/**
+ * @since 0.1.0
+ * @var array $screens
+ */
+$screens = $plugin->get_screens();
 
 ?><div class="wrap">
-
-	<?php screen_icon(); ?>
-
-	<h2>WordPress Administration Design Patterns Library</h2>
-
-    <p>This plugin that contains design pattern library to help with developing plugins that perfectly fit into <a href="https://wordpress.org/" target="blank">WordPress</a> administration.</p>
-
-	<h3>Table of Contents</h3>
-
-	<ul class="ul-disc">
-        <?php foreach( $screens as $scr ) : ?>
-        <li><a href="<?php echo admin_url( '?page=' . $scr->get_slug() ); ?>" title="<?php echo $scr->get_page_title(); ?>"><?php echo $scr->get_menu_title(); ?></a></li>
-        <?php endforeach; ?>
-	</ul>
-
-	<h3>Usefull links</h3>
-	<ul class="ul-disc">
-		<li><a href="https://developer.wordpress.org/resource/dashicons" target="blank">Developer Resources: Dashicons</a></li>
-		<li><a href="https://codex.wordpress.org/Database_Description" target="blank">WordPress Database Description</a></li>
-        <li><a href="https://developer.wordpress.org/plugins/the-basics/best-practices/" target="blank">Plugin Handbook</a></li>
-	</ul>
-
+    <h1><?php _e( 'WordPress Administration Design Patterns Library', ODWPAP_DOMAIN ) ?></h1>
+    <p><?php printf( __( 'This plugin that contains design pattern library to help you with developing plugins that perfectly fit into %sWordPress%s administration.', ODWPAP_DOMAIN ), '<a href="https://wordpress.org/" target="blank">', '</a>' ) ?></p>
+    <div style="overflow: hidden; margin: 0 -8px;">
+        <div class="card" style="float: left; width: 49.5%;">
+            <h2 class="title"><?php _e( 'Table of Contents', ODWPAP_DOMAIN ) ?></h2>
+            <ul class="ul-disc">
+                <?php foreach( $screens as $scr ) : if ( $scr->get_slug() !== 'odwpap-screen_toc' ) : ?>
+                <li><a href="<?php echo admin_url( 'admin.php?page=' . $scr->get_slug() ) ?>"><?php echo $scr->get_menu_title(); ?></a> &ndash; <?php echo $scr->get_page_description() ?></li>
+                <?php endif; endforeach; ?>
+            </ul>
+        </div>
+        <div class="card" style="float: right; width: 49.5%">
+            <h2 class="title"><?php _e( 'Donate via PayPal.me', ODWPAP_DOMAIN ) ?></h2>
+            <div class="card-donate">
+                <div class="donate-paypalme">
+                    <a href="https://www.paypal.me/ondrejd" target="_blank">
+                        <img src="<?php echo ODWPAP_URL . 'assets/images/pplogo384.png' ?>" alt="PayPal.Me">
+                    </a>
+                    <p><?php printf(
+		                    __( 'If you like this plugin you can %3$sconsider %1$sdonation%2$s to the author.%3$sAll contributions are more than welcome!', ODWPAP_DOMAIN ),
+		                    '<a href="https://www.paypal.me/ondrejd" target="_blank">', '</a>', '<br>'
+                        ) ?></p>
+                </div>
+            </div>
+        </div>
+        <div class="card" style="float: left; width: 49.5%;">
+            <h2 class="title"><?php _e( 'Useful links', ODWPAP_DOMAIN ) ?></h2>
+            <ul class="ul-disc">
+                <li><a href="https://developer.wordpress.org/plugins/" target="blank"><?php _e( 'Plugin Handbook', ODWPAP_DOMAIN ) ?></a> &ndash; <?php printf( __( 'Here you can find all about development of %1$sWordPress%2$s plugins.', ODWPAP_DOMAIN ), '<strong>', '</strong>' ) ?></li>
+                <li><a href="https://codex.wordpress.org/Database_Description" target="blank"><?php _e( 'WordPress Database Description', ODWPAP_DOMAIN ) ?></a> &ndash; <?php printf( __( '%1$sWordPress Codex%2$s page with detailed description (including image of schema) of %3$sWP%4$s database tables.', ODWPAP_DOMAIN ), '<strong>', '</strong>', '<em>', '</em>' ) ?></li>
+                <li><a href="https://developer.wordpress.org/resource/dashicons" target="blank"><?php _e( 'Developer Resources: Dashicons', ODWPAP_DOMAIN ) ?></a> &ndash; <?php printf( __( '%1$sDashicons%2$s is the official icon font of the %1$sWordPress%2$s admin as of %1$s3.8%2$s.', ODWPAP_DOMAIN ), '<strong>', '</strong>' ) ?></li>
+            </ul>
+        </div>
+    </div>
 </div>

@@ -1,86 +1,88 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * @todo Get plugin's option `display_detail_description`!
+ * WordPress plugin Admin Patterns that contains design patterns library
+ * to help with developing plugins that perfectly fit into WordPress.
+ *
+ * @author Ondřej Doněk, <ondrejd@gmail.com>
+ * @license https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License 3.0
+ * @link https://github.com/ondrejd/odwp-adminpatterns for the canonical source repository
+ * @package odwp-adminpatterns
+ * @since 0.1.0
  */
-$display_description = true;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit();
+}
+
+use \com\ondrejd\adminpatterns\Snippets_Manager;
 
 ?><div class="wrap">
 
-	<?php screen_icon(); ?>
+    <h1><?php _e( 'Other Admin Widgets', ODWPAP_DOMAIN ) ?></h1>
 
-	<h1>Other Admin Widgets</h1>
-
-	<h3 class="screen-reader-text">List of Contents</h3>
+	<h3 class="screen-reader-text"><?php _e( 'List of Contents', ODWPAP_DOMAIN ) ?></h3>
 	<ul class="subsubsub">
-		<li><b>Contents:</b> </li>
-		<li><a href="#br-admin_notices">Admin Notices</a> | </li>
-		<li><a href="#br-bubble_icon">Bubble Icon</a> | </li>
-		<li><a href="#br-admin_colors">Admin Colors</a> | </li>
-		<li><a href="#br-spinner">Spinner</a></li>
+		<li><b><?php _e( 'Contents:', ODWPAP_DOMAIN ) ?></b> </li>
+		<li><a href="#br-admin_notices"><?php _e( 'Admin Notices', ODWPAP_DOMAIN ) ?></a> | </li>
+		<li><a href="#br-bubble_icon"><?php _e( 'Bubble Icon', ODWPAP_DOMAIN ) ?></a> | </li>
+		<li><a href="#br-spinner"><?php _e( 'Spinner', ODWPAP_DOMAIN ) ?></a> | </li>
+        <li><a href="#br-admin_colors"><?php _e( 'Admin Colors', ODWPAP_DOMAIN ) ?></a></li>
 	</ul>
 
 	<!-- Admin notices -->
 	<br id="br-admin_notices" class="clear" />
-	<h2>Admin notices</h2>
+	<h2><?php _e( 'Admin notices', ODWPAP_DOMAIN ) ?></h2>
 	<div class="wp-pattern-example">
-		<p>When you want to show result of any operation to the user the <b>admin notices</b> are what you looking for. These notifications are allways shown at the top of a page just beneath the main title. Needed markup is simple:</p>
-
-		<pre><code class="language-markup">&lt;div class="notice notice-error"&gt;&lt;p&gt;Error notice&lt;/p&gt;&lt;/div&gt;
- &lt;div class="notice notice-warning"&gt;&lt;p&gt;Warning notice&lt;/p&gt;&lt;/div&gt;
- &lt;div class="notice notice-success"&gt;&lt;p&gt;Success notice&lt;/p&gt;&lt;/div&gt;
- &lt;div class="notice notice-info is-dismissible"&gt;&lt;p&gt;Informational notice&lt;/p&gt;&lt;/div&gt;</code></pre>
-
-		<p>And the resulting notices looks like this:</p>
-
-		<img src="<?php echo plugins_url( '../images/admin_notices.png', __FILE__ ); ?>" alt="Example notices"/>
-
-		<p><?php printf( 'As you can see the last notice is also dismissible - this is because of using class <code>.is-dismissible</code>. If you want to store state of dismissible notice you can use small library <a href="">CalderaWP/dismissible_notice</a>.', 'https://github.com/CalderaWP/dismissible_notice/tree/master/src' ); ?></p>
+		<p><?php _e( 'When you want to show result of any operation to the user the <b>admin notices</b> are what you looking for. These notifications are allways shown at the top of a page just beneath the main title. Needed markup is simple:', ODWPAP_DOMAIN ) ?></p>
+		<?php Snippets_Manager::render_snippet( 'otherwidgets/admin-notices' ) ?>
+		<p><?php _e( 'And the resulting notices looks like this:', ODWPAP_DOMAIN ) ?></p>
+		<img src="<?php echo ODWPAP_URL . 'assets/images/admin_notices.png' ?>" alt="Example notices"/>
+		<p><?php _e( 'As you can see the last notice is also dismissible - this is because of using class <code>.is-dismissible</code>.', ODWPAP_DOMAIN ) ?></p>
 	</div>
-	<p class="description"><a href="#wpbody" class="alignright">Back to top</a></p>
+	<p class="description"><a href="#wpbody" class="alignright"><?php _e( 'Back to top', ODWPAP_DOMAIN ) ?></a></p>
 
 	<!-- Bubble Icon -->
 	<br id="br-bubble_icon" class="clear" />
-	<h2>Bubble Icon</h2>
+	<h2><?php _e( 'Bubble Icon', ODWPAP_DOMAIN ) ?></h2>
 	<div class="wp-pattern-example">
-		<p><?php printf( 'Sometimes you want to show count of items for an admin menu item (doesn\'t matter if it is your menuitem or <i>WP</i> original). It\'s pretty simple you just need to add hook for action <code><a href="%s" target="blank">admin_menu</a></code> and update any menu item you want: ', 'https://codex.wordpress.org/Plugin_API/Action_Reference/admin_menu' ); ?></p>
-		<pre><code class="language-php">/**
-&nbsp; * @global array $menu
-&nbsp; * @return void;
-&nbsp; */
-function add_user_menu_bubble() {
-	global $menu;
-
-	foreach ( $menu as $key => $value ) {
-		if ( $menu[$key][2] == 'users.php' ) {
-			$menu[$key][0] .= sprintf( ' <span class="update-plugins count-%d"><span class="plugin-count">%d</span></span>', 10, 10);
-			return;
-		}
-	}
-}
-add_action( 'admin_menu', 'add_user_menu_bubble' );
-		</code></pre>
-		<p>If you try previous example you will got something like this:</p>
-		<img src="<?php echo plugins_url( '../images/bubble_count.png', __FILE__ ); ?>" alt="Example bubble icon"/>
+		<p><?php printf( __( 'Sometimes you want to show count of items for an admin menu item (does not matter if it is your menuitem or <em>WP</em> original). It\'s pretty simple you just need to add hook for action %sadmin_menu%s and update any menu item you want: ', ODWPAP_DOMAIN ), '<code><a href="https://codex.wordpress.org/Plugin_API/Action_Reference/admin_menu" target="blank">', '</a></code>' ) ?></p>
+		<?php Snippets_Manager::render_snippet( 'otherwidgets/bubble-icon', 'language-php', true ) ?>
+		<p><?php _e( 'If you try previous example you will got something like this:', ODWPAP_DOMAIN ) ?></p>
+		<img src="<?php echo ODWPAP_URL . 'assets/images/bubble_count.png' ?>" alt="<?php _e( 'Example bubble icon', ODWPAP_DOMAIN ) ?>"/>
 	</div>
-	<p class="description"><a href="#wpbody" class="alignright">Back to top</a></p>
+	<p class="description"><a href="#wpbody" class="alignright"><?php _e( 'Back to top', ODWPAP_DOMAIN ) ?></a></p>
+
+    <!-- Spinners -->
+    <br id="br-spinner" />
+    <h2><?php _e( 'Spinner', ODWPAP_DOMAIN ) ?></h2>
+    <div class="wp-pattern-example">
+        <p><?php printf( 'This element is new since <b>WordPress</b> version <b>4.2</b> (<a href="%s" target="blank">more details</a>). Is oftenly used in inline forms while AJAX submitting is performed. See example below:', 'https://make.wordpress.org/core/2015/04/23/spinners-and-dismissible-admin-notices-in-4-2/' ) ?></p>
+        <p><?php _e( 'Here is an excerpt from required HTML code:', ODWPAP_DOMAIN ) ?></p>
+		<?php Snippets_Manager::render_snippet( 'otherwidgets/spinner-html' ) ?>
+        <p><?php _e( 'And here is JavaScript code which toggles visibility of the spinner:', ODWPAP_DOMAIN ) ?></p>
+		<?php Snippets_Manager::render_snippet( 'otherwidgets/spinner-js', 'language-php', true ) ?>
+		<?php
+		/**
+		 * @todo We need working example!!!
+		 */
+		?>
+        <p class="submit submit-example">
+            <button class="button-primary save alignright" type="button">Click me!</button>
+            <span class="spinner is-active" style="visibility: collapse;"></span>
+        <div class="clear" />
+        </p>
+    </div>
 
 	<!-- Admin Colors -->
 	<br id="br-admin_colors" />
-	<h2>Admin Colors</h2>
+	<h2><?php _e( 'Admin Colors', ODWPAP_DOMAIN ) ?></h2>
 	<div class="wp-pattern-example">
-		<p>Here are listed color schemas provided by <b>WordPress</b> administration:</p>
+		<p><?php _e( 'Here are listed color schemas provided by <strong>WordPress</strong> administration:', ODWPAP_DOMAIN ) ?></p>
 		<table class="widefat admin-colors-table">
 			<thead>
 				<tr>
-					<th class="name-col">Schema name</th>
-					<th colspan="2">Colors</th>
+					<th class="name-col"><?php _e( 'Schema name', ODWPAP_DOMAIN ) ?></th>
+					<th colspan="2"><?php _e( 'Colors', ODWPAP_DOMAIN ) ?></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -92,23 +94,23 @@ add_action( 'admin_menu', 'add_user_menu_bubble' );
 				?>
 				<tr<?php echo $tr_class; ?>>
 					<th rowspan="2" scope="row">
-						<span><?php esc_html_e( $color_schema->name ); ?></span>
+						<span><?php esc_html_e( $color_schema->name ) ?></span>
 						<?php if ( get_user_option( 'admin_color' ) == $color_schema_id ):?>
-							<br /><small><i>(Currently used)</i></small>
+							<br /><small><i><?php _e( '(Currently used)', ODWPAP_DOMAIN ) ?></i></small>
 						<?php endif; ?>
 					</th>
-					<td class="subname-col">Base Colors: </td>
+					<td class="subname-col"><?php _e( 'Base Colors: ', ODWPAP_DOMAIN ) ?></td>
 					<td>
 						<?php foreach ( $color_schema->colors as $color_id => $color_code ): ?>
-						<span title="<?php esc_attr_e( $color_code ); ?>" class="color_example" style="background-color: <?php esc_attr_e( $color_code ); ?>; border: 1px solid <?php esc_attr_e( $color_code ); ?>"></span>
+						<span title="<?php esc_attr_e( $color_code ) ?>" class="color_example" style="background-color: <?php esc_attr_e( $color_code ) ?>; border: 1px solid <?php esc_attr_e( $color_code ) ?>"></span>
 						<?php endforeach;?>
 					</td>
 				</tr>
 				<tr<?php echo $tr_class; ?>>
-					<td class="subname-col">Icon Colors: </td>
+					<td class="subname-col"><?php _e( 'Icon Colors: ', ODWPAP_DOMAIN ) ?></td>
 					<td>
 						<?php foreach ( $color_schema->icon_colors as $icon_color_id => $icon_color_code ): ?>
-						<span title="<?php esc_attr_e( $icon_color_id . ': ' .$icon_color_code ); ?>" class="color_example color_example-icon" style="background-color: <?php esc_attr_e( $icon_color_code ); ?>; border: 1px solid <?php esc_attr_e( $icon_color_code ); ?>"></span>
+						<span title="<?php esc_attr_e( $icon_color_id . ': ' .$icon_color_code ) ?>" class="color_example color_example-icon" style="background-color: <?php esc_attr_e( $icon_color_code ) ?>; border: 1px solid <?php esc_attr_e( $icon_color_code ) ?>"></span>
 						<?php endforeach;?>
 					</td>
 				</tr>
@@ -116,41 +118,6 @@ add_action( 'admin_menu', 'add_user_menu_bubble' );
 			</tbody>
 		</table>
 	</div>
-	<p class="description"><a href="#wpbody" class="alignright">Back to top</a></p>
-
-	<!-- Spinners -->
-	<br id="br-spinner" />
-	<h2>Spinner</h2>
-	<div class="wp-pattern-example">
-		<p><?php printf( 'This element is new since <b>WordPress</b> version <b>4.2</b> (<a href="%s" target="blank">more details</a>). Is oftenly used in inline forms while AJAX submitting is performed. See example below:', 'https://make.wordpress.org/core/2015/04/23/spinners-and-dismissible-admin-notices-in-4-2/' ); ?></p>
-		<p>Here is an excerpt from required HTML code:</p>
-		<pre><code class="language-markup">&lt;p class="submit submit-example"&gt;
-	&lt;button class="button-primary save alignright" type="button"&gt;Click me!&lt;/button&gt;
-	&lt;span class="spinner is-active" style="visibility: collapse;"&gt;&lt;/span&gt;
-	&lt;div class="clear" /&gt;
-&lt;/p&gt;</code></pre>
-		<p>And here is JavaScript code which toggles visibility of the spinner:</p>
-		<pre><code class="language-javascript">jQuery(document).on('load', function() {
-	jQuery('.submit-example button').on('click', function() {
-		// Here you should have just: 
-		// jQuery(this).next().css('visibility', 'visible');
-		// ... and some code that follows. When is execution of this code 
-		// finished don\'t forgot to hide spinner again: 
-		// jQuery(this).next().css('visibility', 'collapse');
-
-		// In our demo we just toggling visibility of the spinner: 
-		if (jQuery(this).next().css('visibility') == 'collapse') {
-			jQuery(this).next().css('visibility', 'visible');
-		} else {
-			jQuery(this).next().css('visibility', 'collapse');
-		}
-	});
-});</code></pre>
-		<p class="submit submit-example">
-			<button class="button-primary save alignright" type="button">Click me!</button>
-			<span class="spinner is-active" style="visibility: collapse;"></span>
-			<div class="clear" />
-		</p>
-	</div>
+	<p class="description"><a href="#wpbody" class="alignright"><?php _e( 'Back to top', ODWPAP_DOMAIN ) ?></a></p>
 
 </div><!-- .wrap -->

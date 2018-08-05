@@ -1,84 +1,111 @@
-<div class="wrap">
-	<?php screen_icon(); ?>
+<?php
+/**
+ * WordPress plugin Admin Patterns that contains design patterns library
+ * to help with developing plugins that perfectly fit into WordPress.
+ *
+ * @author Ondřej Doněk, <ondrejd@gmail.com>
+ * @license https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License 3.0
+ * @link https://github.com/ondrejd/odwp-adminpatterns for the canonical source repository
+ * @package odwp-adminpatterns
+ * @since 0.1.0
+ */
 
-	<h2>Style Helper Classes</h2>
+if ( ! defined( 'ABSPATH' ) ) {
+	exit();
+}
+
+use \com\ondrejd\adminpatterns\Plugin;
+use \com\ondrejd\adminpatterns\Snippets_Manager;
+
+/**
+ * @since 0.1.0
+ * @var \com\ondrejd\adminpatterns\Plugin $plugin
+ */
+$plugin = Plugin::get_instance();
+
+/**
+ * @since 0.1.0
+ * @var boolean $display_description
+ */
+$display_description = (bool) $plugin->get_option( 'display_detail_description' );
+
+?><div class="wrap">
+
+    <h1><?php _e( 'Style Helper Classes', ODWPAP_DOMAIN ) ?></h1>
 
 	<div class="wp-pattern-example">
-		<h3>Alignment</h3>
-
+		<h3>A<?php _e( 'lignment', ODWPAP_DOMAIN ) ?></h3>
 		<table class="wp-pattern-table">
 		<thead>
 			<tr>
-				<th class="example-code">Class</th>
-				<th class="example-descrip">Description</th>
+				<th class="example-code"><?php _e( 'Class', ODWPAP_DOMAIN ) ?></th>
+				<th class="example-description"><?php _e( 'Description', ODWPAP_DOMAIN ) ?></th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
 				<td><code>.alignleft</code></td>
-				<td><span class="alignleft">Elements with left alignment.</span></td>
+				<td><span class="alignleft"><?php _e( 'Elements with left alignment.', ODWPAP_DOMAIN ) ?></span></td>
 			</tr>
 			<tr>
 				<td><code>.alignright</code></td>
-				<td><span class="alignright">Elements with rign alignment.</span></td>
+				<td><span class="alignright"><?php _e( 'Elements with rign alignment.', ODWPAP_DOMAIN ) ?></span></td>
 			</tr>
 		</tbody>
 		</table>
 	</div>
 
 	<div class="wp-pattern-example">
-		<h3>Blocks</h3>
-
+		<h3><?php _e( 'Blocks', ODWPAP_DOMAIN ) ?></h3>
 		<table class="wp-pattern-table">
 		<thead>
 			<tr>
-				<th class="example-code">Class</th>
-				<th class="example-descrip">Description</th>
+				<th class="example-code"><?php _e( 'Class', ODWPAP_DOMAIN ) ?></th>
+				<th class="example-description"><?php _e( 'Description', ODWPAP_DOMAIN ) ?></th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
 				<td><code>.wp-ui-primary</code></td>
-				<td><span class="wp-ui-primary">Elements with this class uses the base color.</span></td>
+				<td><span class="wp-ui-primary"><?php _e( 'Elements with this class uses the base color.', ODWPAP_DOMAIN ) ?></span></td>
 			</tr>
 			<tr>
 				<td><code>.wp-ui-highlight</code></td>
-				<td><span class="wp-ui-highlight">Elements with this class uses the highlight color.</span></td>
+				<td><span class="wp-ui-highlight"><?php _e( 'Elements with this class uses the highlight color.', ODWPAP_DOMAIN ) ?></span></td>
 			</tr>
 			<tr>
 				<td><code>.wp-ui-notification</code></td>
-				<td><span class="wp-ui-notification">Elements with this class uses the notification color.</span></td>
+				<td><span class="wp-ui-notification"><?php _e( 'Elements with this class uses the notification color.', ODWPAP_DOMAIN ) ?></span></td>
 			</tr>
 		</tbody>
 	</table>
 	</div>
 
 	<div class="wp-pattern-example">
-		<h3>Text</h3>
-
+		<h3><?php _e( 'Text', ODWPAP_DOMAIN ) ?></h3>
 		<table class="wp-pattern-table">
 		<thead>
 			<tr>
-				<th class="example-code">Class</th>
-				<th class="example-descrip">Description</th>
+				<th class="example-code"><?php _e( 'Class', ODWPAP_DOMAIN ) ?></th>
+				<th class="example-description"><?php _e( 'Description', ODWPAP_DOMAIN ) ?></th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
 				<td><code>.wp-ui-text-primary</code></td>
-				<td><span class="wp-ui-text-primary">Text with this class uses the base color.</span></td>
+				<td><span class="wp-ui-text-primary"><?php _e( 'Text with this class uses the base color.', ODWPAP_DOMAIN ) ?></span></td>
 			</tr>
 			<tr>
 				<td><code>.wp-ui-text-highlight</code></td>
-				<td><span class="wp-ui-text-highlight">Text with this class uses the highlight color.</span></td>
+				<td><span class="wp-ui-text-highlight"><?php _e( 'Text with this class uses the highlight color.', ODWPAP_DOMAIN ) ?></span></td>
 			</tr>
 			<tr>
 				<td><code>.wp-ui-text-notification</code></td>
-				<td><span class="wp-ui-text-notification">Text with this class uses the notification color.</span></td>
+				<td><span class="wp-ui-text-notification"><?php _e( 'Text with this class uses the notification color.', ODWPAP_DOMAIN ) ?></span></td>
 			</tr>
 			<tr>
 				<td><code>.wp-ui-text-icon</code></td>
-				<td><span class="wp-ui-text-icon">Text with this class uses the icon color.</span></td>
+				<td><span class="wp-ui-text-icon"><?php _e( 'Text with this class uses the icon color.', ODWPAP_DOMAIN ) ?></span></td>
 			</tr>
 		</tbody>
 	</table>

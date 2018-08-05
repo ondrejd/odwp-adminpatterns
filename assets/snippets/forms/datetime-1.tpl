@@ -1,0 +1,1 @@
+<?php @touch_time( false, false, false, true ); ?>

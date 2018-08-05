@@ -1,0 +1,1 @@
+<?php submit_button( 'Submit Input', 'primary', 'my-submit' ); ?>

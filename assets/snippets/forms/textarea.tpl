@@ -1,0 +1,1 @@
+<textarea name="textarea" class="large-text">Sample text</textarea>

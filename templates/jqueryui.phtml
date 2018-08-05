@@ -1,22 +1,26 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * WordPress plugin Admin Patterns that contains design patterns library
+ * to help with developing plugins that perfectly fit into WordPress.
+ *
+ * @author Ondřej Doněk, <ondrejd@gmail.com>
+ * @license https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License 3.0
+ * @link https://github.com/ondrejd/odwp-adminpatterns for the canonical source repository
+ * @package odwp-adminpatterns
+ * @since 0.1.0
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit();
+}
 
 /**
  * @todo Add code example (this page, how jQuery is registered etc.)!
- * @todo Get plugin's option `display_detail_description`!
  */
-$display_description = true;
 
 ?><div class="wrap">
 
-	<?php screen_icon(); ?>
-
-	<h1>jQuery UI Components</h1>
+    <h1><?php _e( 'jQuery UI Components', ODWPAP_DOMAIN ) ?></h1>
 
 	<!-- Accordion -->
 	<h2>Accordion</h2>

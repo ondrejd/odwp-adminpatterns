@@ -1,0 +1,1 @@
+<input type="checkbox" <?php echo ( /* condition */ ) ? ' checked="checked"' : ''; ?>>
