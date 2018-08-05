@@ -99,6 +99,7 @@ include_once( ODWPAP_DIR . 'src/Screen/Screen_Prototype.php' );
 include_once( ODWPAP_DIR . 'src/Screen/Screen_Forms.php' );
 include_once( ODWPAP_DIR . 'src/Screen/Screen_HelperClasses.php' );
 include_once( ODWPAP_DIR . 'src/Screen/Screen_OtherWidgets.php' );
+include_once( ODWPAP_DIR . 'src/Screen/Screen_Gutenberg.php' );
 include_once( ODWPAP_DIR . 'src/Screen/Screen_Toc.php' );
 
 // Initialize our plugin
@@ -113,7 +114,8 @@ include_once( ODWPAP_DIR . 'src/Screen/Screen_Toc.php' );
 		'\com\ondrejd\adminpatterns\Screen\Screen_Forms',
 		'\com\ondrejd\adminpatterns\Screen\Screen_OtherWidgets',
 		'\com\ondrejd\adminpatterns\Screen\Screen_HelperClasses',
+		'\com\ondrejd\adminpatterns\Screen\Screen_Gutenberg',
 	),
 	'slug'        => ODWPAP_SLUG,
-	'version'     => '0.1.0',
+	'version'     => '0.2.0',
 ) );
