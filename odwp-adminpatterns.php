@@ -98,7 +98,6 @@ include_once( ODWPAP_DIR . 'src/Snippets_Manager.php' );
 include_once( ODWPAP_DIR . 'src/Screen/Screen_Prototype.php' );
 include_once( ODWPAP_DIR . 'src/Screen/Screen_Forms.php' );
 include_once( ODWPAP_DIR . 'src/Screen/Screen_HelperClasses.php' );
-include_once( ODWPAP_DIR . 'src/Screen/Screen_JqueryUi.php' );
 include_once( ODWPAP_DIR . 'src/Screen/Screen_OtherWidgets.php' );
 include_once( ODWPAP_DIR . 'src/Screen/Screen_Toc.php' );
 
@@ -114,7 +113,6 @@ include_once( ODWPAP_DIR . 'src/Screen/Screen_Toc.php' );
 		'\com\ondrejd\adminpatterns\Screen\Screen_Forms',
 		'\com\ondrejd\adminpatterns\Screen\Screen_OtherWidgets',
 		'\com\ondrejd\adminpatterns\Screen\Screen_HelperClasses',
-		'\com\ondrejd\adminpatterns\Screen\Screen_JqueryUi',
 	),
 	'slug'        => ODWPAP_SLUG,
 	'version'     => '0.1.0',

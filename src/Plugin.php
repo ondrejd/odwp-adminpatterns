@@ -343,31 +343,27 @@ class Plugin {
 	 *
 	 * @return void
 	 * @since 0.1.0
+	 * @uses is_ssl();
 	 * @uses wp_enqueue_script()
 	 * @uses wp_enqueue_style()
 	 * @uses wp_localize_script()
+	 * @uses wp_register_script()
 	 */
 	public function admin_enqueue_scripts() {
 
 		// JavaScript
-		$js_file = 'assets/js/admin.js';
-		$js_path = $this->get_base_path() . $js_file;
-
-		if ( file_exists( $js_path ) && is_readable( $js_path ) ) {
-			wp_enqueue_script( $this->get_slug(), $this->get_base_url() . $js_file, ['jquery'] );
-			wp_localize_script( $this->get_slug(), $this->get_slug(), [
-				// Put variables you want to pass into JS here...
-			] );
-		}
+		$script_slug = $this->get_slug() . '-admin';
+		wp_register_script( $script_slug, $this->get_base_url() . 'assets/js/admin.js', array( 'jquery-ui' ) );
+		wp_enqueue_script( $script_slug );
+		wp_localize_script( $script_slug, $this->get_slug(), array(
+			// Put variables you want to pass into JS here...
+		) );
 
 		// CSS
-		$css_file = 'assets/css/admin.css';
-		$css_path = $this->get_base_path() . $css_file;
+		$style_slug = $this->get_slug() . '-admin';
+		wp_enqueue_style( $style_slug, $this->get_base_url() . 'assets/css/admin.css' );
 
-		if ( file_exists( $css_path ) && is_readable( $css_path ) ) {
-			wp_enqueue_style( $this->get_slug(), $this->get_base_url() . $css_file );
-		}
-
+		// Call screens customizations
 		$this->screens_call_method( 'admin_enqueue_scripts' );
 	}
 
